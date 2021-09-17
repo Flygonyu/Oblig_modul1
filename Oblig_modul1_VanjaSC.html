@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Obligatorisk oppgave</title>
+<style>
+   body{
+       margin: 50px;
+   }
+    #selected {
+        stroke:black;
+        stroke-width: 1px;
+    }
+</style>
+</head>
+<body>
+    <div id="content">
+    </div>
+    
+    <script>
+        // hjelpevariable for både view og controller
+        var contentDiv = document.getElementById('content');
+    
+        // model
+        let numbers = [7, 3, 1, 5, 8];
+        let chosenBar = '<i>none</i>'; // Variabel for hvilken stolpe som er valgt
+        let inputValue = ''; // Variabel for hva som er skrevet i input-feltet
+        let disable = 'disabled';
+        
+
+
+        // view
+        show();
+        function show() {
+            let svgInnerHtml = '';
+            for (let i = 0; i < numbers.length; i++) {
+                svgInnerHtml += createBar(numbers[i], i + 1);
+            }
+            contentDiv.innerHTML = `
+                <svg id="chart" width="2000" height="650" viewBox="-1 5 310 10">
+                    ${svgInnerHtml}
+                </svg><br/>
+                Chosen bar: ${chosenBar}
+                <br />
+                Value (1-10):
+                <input type="number" min="1" max="10" oninput="inputValue=this.value" />
+                <button onclick="addBar()">Add bar</button>
+                <button ${disable} onclick="changeBar()">Change chosen bar</button>
+                <button ${disable} onclick="removeBar(this)">Remove chosen bar</button>
+                `;
+               
+        }
+
+    
+    
+        function createBar(number, barNum) {
+            let style = '';
+            const width = 8;
+            const spacing = 2;
+            let x = (barNum - 1) * (width + spacing);
+            let height = number * 10;
+            let y = 60 - height;
+            let color = calcColor(1, 10, barNum);
+            if (barNum == chosenBar){
+                style = 'selected';
+            }
+            return `<rect id="${style}" onclick="choose(${barNum})" width="${width}" height="${height}"
+                                x="${x}" y="${y}" fill="${color}"></rect>`;
+            
+
+        }
+    
+        function calcColor(min, max, val) {
+            var minHue = 280, maxHue = 0;
+            var curPercent = (val - min) / (max - min);
+            var colString = "hsl(" + ((curPercent * (maxHue - minHue)) + minHue) + ",100%,50%)";
+            return colString;
+        }
+    
+        // controller 
+        function choose(bar){
+            
+        if(bar == chosenBar){
+            disable = 'disabled';
+            chosenBar = ''
+        }  
+        else{
+            chosenBar = bar;
+            disable = ''
+        }
+            show();
+        }
+
+        function changeBar(){
+            if (inputValue < 1 || inputValue > 10){
+            alert("Please choose a number between 1 and 10!")
+        }
+            else{
+                numbers[chosenBar-1] = inputValue;
+            }
+            
+
+            show();
+        }
+
+        function removeBar() {
+            numbers.splice(chosenBar - 1, 1)
+            
+            show();
+        }
+
+        function addBar(){ 
+            if (inputValue < 1 || inputValue > 10){
+            alert("Please choose a number between 1 and 10!")
+        }
+            else{
+                numbers.push(inputValue);
+            }
+
+            show();
+        }
+    </script>
+</body>
+</html>
