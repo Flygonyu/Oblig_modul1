@@ -18,9 +18,9 @@
 <body>
     <div id="content">
     </div>
-    
-    <script>
-        var contentDiv = document.getElementById('content');
+
+<script>
+    var contentDiv = document.getElementById('content');
     
         // model
         let numbers = [7, 3, 1, 5, 8];
@@ -77,49 +77,7 @@
             var colString = "hsl(" + ((curPercent * (maxHue - minHue)) + minHue) + ",100%,50%)";
             return colString;
         }
-    
-        // controller 
-        function choose(bar){
-            
-        if(bar == chosenBar){
-            disable = 'disabled';
-            chosenBar = ''
-        }  
-        else{
-            chosenBar = bar;
-            disable = ''
-        }
-            show();
-        }
-
-        function changeBar(){
-            if (inputValue < 1 || inputValue > 10){
-            alert("Please choose a number between 1 and 10!")
-        }
-            else{
-                numbers[chosenBar-1] = inputValue;
-            }
-            
-
-            show();
-        }
-
-        function removeBar() {
-            numbers.splice(chosenBar - 1, 1)
-            
-            show();
-        }
-
-        function addBar(){ 
-            if (inputValue < 1 || inputValue > 10){
-            alert("Please choose a number between 1 and 10!")
-        }
-            else{
-                numbers.push(inputValue);
-            }
-
-            show();
-        }
-    </script>
+        </script>
+    <script src="controller.js"></script>
 </body>
 </html>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Test Suite</title>
+<link rel="stylesheet" href="https://code.jquery.com/qunit/qunit-2.16.0.css">
+<body>
+  <div id="qunit"></div>
+  <div id="qunit-fixture"></div>
+  <script src="https://code.jquery.com/qunit/qunit-2.16.0.js"></script>
+  <script src="controller.js"></script>
+</body>
+<script>
+
+    function show() { }
+
+    //dummyModel
+    let inputValue = '';
+    let chosenBar = '';
+    let numbers = [ ];
+
+
+  QUnit.module('choose', function() {
+      QUnit.test('should select a bar', function(assert) {
+          choose(2);
+          let actual = chosenBar;
+          let expected = 2;
+        assert.equal(actual, expected);
+      });
+    });
+
+    QUnit.module('removeBar', function() {
+      QUnit.test('should remove chosen bar', function(assert) {
+          numbers = [1, 2, 3];
+          chosenBar = 2;
+          removeBar();
+          let actual = numbers;
+          let expected = [1, 3];
+        assert.deepEqual (actual, expected);
+      });
+    });
+
+    QUnit.module('addBar', function() {
+      QUnit.test('should add a bar', function(assert) {
+          numbers = [1, 2, 3];
+          inputValue = 4;
+          addBar();
+          let actual = numbers;
+          let expected = [1, 2, 3, 4];
+        assert.deepEqual(actual, expected);
+      });
+    });
+
+    QUnit.module('changeBar', function() {
+      QUnit.test('should change chosen bar', function(assert) {
+          chosenBar = 3;
+          inputValue = 5;
+          numbers = [1, 2, 3]
+          changeBar();
+          let actual = numbers;
+          let expected = [1, 2, 5];
+        assert.deepEqual(actual, expected);
+      });
+    });
+
+    
+  </script>
