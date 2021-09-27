@@ -22,6 +22,7 @@
                 numbers[chosenBar-1] = inputValue;
                 chosenBar = '<i>none</i>';
                 inputValue = '';
+                disable = 'disabled';
             }
             
 
